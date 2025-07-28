@@ -46,7 +46,7 @@ server = app.server
 
 app.layout = html.Div([
     html.H1("PM2.5 and Infant Mortality Dashboard", 
-            style={'textAlign': 'center', 'marginBottom': 30, 'color': "#023047", 'fontFamily': 'sans-serif'}),
+            style={'textAlign': 'center', 'marginBottom': 30, 'color': "#700C0C", 'fontFamily': 'sans-serif'}),
     
     html.Div([
         html.Label("Select County:", 
@@ -73,7 +73,7 @@ app.layout = html.Div([
         ], style={'width': '48%', 'display': 'inline-block', 'verticalAlign': 'top', 'marginLeft': '4%'})
     ]),
 ], style={
-    'backgroundColor': "#fff0ce",
+    'backgroundColor': "#e1dfdb",
     'minHeight': '100vh',
     'margin': '0',
     'padding': '20px',
@@ -90,7 +90,7 @@ app.layout = html.Div([
 )
 def update_aqi_chart(selected_county):
     filtered_data = aqi_data[aqi_data['County'] == selected_county]
-    
+
     fig = px.line(
         filtered_data,
         x='Year',
@@ -100,14 +100,14 @@ def update_aqi_chart(selected_county):
         markers=True
     )
     
-    fig.update_traces(line=dict(color="#00b4d8", width=4), marker=dict(size=8, color="#00b4d8"))
+    fig.update_traces(line=dict(color= "blue", width=4), marker=dict(size=8, color="blue"))
     fig.update_layout(
         xaxis=dict(tickmode='linear'),
         yaxis=dict(title='AQI Value'),
         showlegend=False,
         hovermode='x unified',
-        plot_bgcolor="#fce9bb",
-        paper_bgcolor="#fce9bb",
+        plot_bgcolor="#e1dfdb",
+        paper_bgcolor="#e1dfdb",
         height=400
     )
     return fig
@@ -118,7 +118,8 @@ def update_aqi_chart(selected_county):
 )
 def update_infant_chart(selected_county):
     filtered_data = infant_data[infant_data['County'] == selected_county]
-    
+    #filtered_data = filtered_data[filtered_data['Year'] >= 2013]
+
     fig = px.bar(
         filtered_data,
         x='Number of Deaths',
@@ -126,7 +127,7 @@ def update_infant_chart(selected_county):
         title=f"Infant Mortality - {selected_county} County",
         labels={'Year': 'Year', 'Number of Deaths': 'Number of Infant Deaths'},
         color='Number of Deaths',
-        color_continuous_scale='blues',
+        color_continuous_scale='reds',
         orientation='h'
     )
     
@@ -134,8 +135,8 @@ def update_infant_chart(selected_county):
         yaxis=dict(tickmode='linear'),
         showlegend=False,
         hovermode='y unified',
-        plot_bgcolor='#fce9bb',
-        paper_bgcolor="#fce9bb",
+        plot_bgcolor='#e1dfdb',
+        paper_bgcolor="#e1dfdb",
         height=400
     )
     return fig
